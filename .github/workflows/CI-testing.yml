@@ -1,0 +1,27 @@
+name: CI test
+
+on: [push, pull_request]
+
+
+jobs:
+    CItesting:
+        runs-on: ubuntu-latest ##server's OS
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4 ##the server contains git by default, to test the code you need to check it out there
+            
+            - name: install python
+              uses: actions/setup-python@v5 ## install python env on server
+              with:
+                python-version: "3.9"
+            
+            - name: install dependances
+              run:
+                python -m pip install --upgrade pip
+                pip install r- requirements.txt
+                pip install pytest
+
+            - name: test the code
+              run: pytest    
+            
+            
